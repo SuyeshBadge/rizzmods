@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaDiscord, FaTwitter, FaTwitch, FaEnvelope, FaMapMarkerAlt, FaPhone, FaArrowRight } from 'react-icons/fa';
+import { IoGameController } from 'react-icons/io5';
+import { RiSparklingFill } from 'react-icons/ri';
 
 const IMAGES = {
   contactBg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80",
@@ -28,7 +30,8 @@ const Contact = () => {
       setSubmitStatus('success');
       // Reset form after success
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch (err) {
+      console.error('Form submission error:', err);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -45,9 +48,9 @@ const Contact = () => {
   };
 
   const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
+    transition: { duration: 0.4 }
   };
 
   const contactInfo = [
@@ -98,11 +101,65 @@ const Contact = () => {
     }
   ];
 
+  // Add floating animation variants
+  const floatingAnimation = {
+    initial: { y: 0 },
+    animate: {
+      y: [-10, 10, -10],
+      transition: {
+        duration: 6,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const floatingDelayedAnimation = {
+    initial: { y: 0 },
+    animate: {
+      y: [10, -10, 10],
+      transition: {
+        duration: 7,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 1
+      }
+    }
+  };
+
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-b from-black via-purple-950/20 to-black relative">
-      {/* Enhanced Background Pattern */}
+    <div className="pt-16 min-h-screen bg-gradient-to-b from-black via-purple-950/20 to-black relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <motion.div
+          className="absolute top-20 left-[10%]"
+          initial="initial"
+          animate="animate"
+          variants={floatingAnimation}
+        >
+          <IoGameController size={48} className="text-purple-500" />
+        </motion.div>
+        <motion.div
+          className="absolute bottom-40 right-[15%]"
+          initial="initial"
+          animate="animate"
+          variants={floatingDelayedAnimation}
+        >
+          <RiSparklingFill size={36} className="text-blue-500" />
+        </motion.div>
+        <motion.div
+          className="absolute top-1/3 right-[20%]"
+          initial="initial"
+          animate="animate"
+          variants={floatingAnimation}
+        >
+          <IoGameController size={32} className="text-purple-400 rotate-45" />
+        </motion.div>
+      </div>
+
+      {/* Optimized Background Pattern - Only show on desktop */}
       <div 
-        className="fixed inset-0 opacity-[0.03] pointer-events-none"
+        className="fixed inset-0 opacity-[0.03] pointer-events-none hidden md:block"
         style={{
           backgroundImage: `url(${IMAGES.contactBg})`,
           backgroundSize: '600px',
@@ -112,10 +169,11 @@ const Contact = () => {
           filter: 'grayscale(1) contrast(1.2) blur(1px)',
           maskImage: 'linear-gradient(to bottom, black, transparent)',
           WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
+          willChange: 'transform', // Optimize transform performance
         }}
       />
 
-      {/* Enhanced Glow Effect */}
+      {/* Optimized Glow Effect - Simplified for mobile */}
       <div 
         className="fixed top-0 left-0 w-full h-full opacity-20 pointer-events-none"
         style={{
@@ -123,28 +181,31 @@ const Contact = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           mixBlendMode: 'soft-light',
+          willChange: 'transform', // Optimize transform performance
         }}
       />
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="container mx-auto px-4 py-8 md:py-12 relative z-10">
+        {/* Optimized header animations */}
         <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-8 md:mb-16"
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4 }}
         >
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-7xl font-bold text-white mb-4 md:mb-6">
             Get in <span className="bg-gradient-to-r from-purple-400 to-purple-600 text-transparent bg-clip-text">Touch</span>
           </h1>
-          <p className="text-xl text-purple-200 max-w-2xl mx-auto">
-            Have questions about our premium gaming mods? We're here to help elevate your gaming experience.
+          <p className="text-lg md:text-xl text-purple-200 max-w-2xl mx-auto">
+            Have questions? We're here to help elevate your gaming experience.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Enhanced Contact Form */}
+        {/* Optimize grid layout for mobile */}
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto">
+          {/* Contact Form - Simplified animations for mobile */}
           <motion.div 
-            className="bg-purple-950/30 p-8 rounded-2xl border border-purple-500/30 backdrop-blur-sm
+            className="bg-purple-950/30 p-6 md:p-8 rounded-2xl border border-purple-500/30 backdrop-blur-sm
                      shadow-[0_0_15px_rgba(168,85,247,0.15)]"
             {...fadeInUp}
           >
@@ -251,12 +312,12 @@ const Contact = () => {
             </form>
           </motion.div>
 
-          {/* Enhanced Contact Information */}
+          {/* Contact Information - Simplified animations for mobile */}
           <motion.div 
-            className="space-y-8"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-4 md:space-y-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
           >
             {contactInfo.map(({ icon: Icon, title, content, link, description }) => (
               <motion.a
@@ -264,10 +325,10 @@ const Contact = () => {
                 href={link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-purple-950/30 p-6 rounded-xl border border-purple-500/30 
+                className="block bg-purple-950/30 p-4 md:p-6 rounded-xl border border-purple-500/30 
                          hover:border-purple-400/50 transition-all duration-300 backdrop-blur-sm
                          shadow-[0_0_15px_rgba(168,85,247,0.15)]"
-                whileHover={{ scale: 1.02, boxShadow: '0 0 20px rgba(168,85,247,0.2)' }}
+                whileHover={{ scale: 1.01 }} // Reduced scale effect
               >
                 <div className="flex items-start space-x-4">
                   <div className="bg-purple-500/20 p-3 rounded-lg">
@@ -282,8 +343,8 @@ const Contact = () => {
               </motion.a>
             ))}
 
-            {/* Enhanced Social Links */}
-            <div className="bg-purple-950/30 p-6 rounded-xl border border-purple-500/30 backdrop-blur-sm
+            {/* Social Links - Simplified for mobile */}
+            <div className="bg-purple-950/30 p-4 md:p-6 rounded-xl border border-purple-500/30 backdrop-blur-sm
                           shadow-[0_0_15px_rgba(168,85,247,0.15)]">
               <h3 className="text-purple-100 font-semibold mb-4">Connect With Us</h3>
               <div className="flex space-x-4">
@@ -291,19 +352,15 @@ const Contact = () => {
                   <motion.a
                     key={label}
                     href={href}
-                    className="bg-purple-900/40 p-4 rounded-lg transition-all duration-300 group
-                             hover:bg-opacity-50"
-                    whileHover={{ 
-                      scale: 1.1,
-                      backgroundColor: hoverBg
-                    }}
-                    whileTap={{ scale: 0.95 }}
+                    className="bg-purple-900/40 p-3 md:p-4 rounded-lg transition-all duration-300"
+                    whileHover={{ scale: 1.05 }} // Reduced scale effect
+                    whileTap={{ scale: 0.98 }}
                     style={{
-                      boxShadow: `0 0 20px ${color}20`
+                      boxShadow: `0 0 10px ${color}20` // Reduced shadow
                     }}
                   >
                     <Icon 
-                      className="w-6 h-6 transition-colors duration-300" 
+                      className="w-5 h-5 md:w-6 md:h-6 transition-colors duration-300" 
                       style={{ 
                         color: color,
                         filter: 'brightness(1.2)'
