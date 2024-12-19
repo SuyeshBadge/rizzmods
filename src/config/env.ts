@@ -1,0 +1,4 @@
+export const ENV = {
+  SHOPIFY_STORE_DOMAIN: import.meta.env.VITE_SHOPIFY_STORE_DOMAIN as string,
+  SHOPIFY_STOREFRONT_ACCESS_TOKEN: import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN as string,
+}; 

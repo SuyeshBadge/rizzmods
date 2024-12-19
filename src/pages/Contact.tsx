@@ -348,7 +348,7 @@ const Contact = () => {
                           shadow-[0_0_15px_rgba(168,85,247,0.15)]">
               <h3 className="text-purple-100 font-semibold mb-4">Connect With Us</h3>
               <div className="flex space-x-4">
-                {socialLinks.map(({ icon: Icon, label, href, color, hoverBg }) => (
+                {socialLinks.map(({ icon: Icon, label, href, color }) => (
                   <motion.a
                     key={label}
                     href={href}

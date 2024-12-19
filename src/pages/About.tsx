@@ -31,16 +31,7 @@ const About = () => {
   };
 
 
-  const floatAnimation = {
-    animate: {
-      y: [0, -10, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
+
 
   const stats = [
     { icon: FaTrophy, value: '1000+', label: 'Products Delivered' },
@@ -603,7 +594,7 @@ const About = () => {
 
                   We're so confident in our craftsmanship that we offer a "Gamer's Honor" guarantee  if you're not absolutely thrilled with your purchase, we'll make it right! 🛡️`
                 }
-              ].map(({ title, content }, index) => (
+              ].map(({ title, content }) => (
                 <motion.section
                   key={title}
                   initial={{ opacity: 0, y: 50 }}

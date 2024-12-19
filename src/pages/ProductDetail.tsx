@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import shopifyClient from '../../../config/shopify';
+import shopifyClient from '../config/shopify';
 
 interface ProductVariant {
   id: string;
@@ -66,7 +66,6 @@ export default function ProductDetail() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Product Images */}
         <div className="space-y-4">
           <div className="aspect-square overflow-hidden rounded-lg">
             <img
@@ -88,7 +87,6 @@ export default function ProductDetail() {
           </div>
         </div>
 
-        {/* Product Info */}
         <div className="space-y-6">
           <div>
             <h1 className="text-3xl font-bold">{product.title}</h1>
@@ -100,7 +98,6 @@ export default function ProductDetail() {
               ${selectedVariant?.price}
             </p>
 
-            {/* Variants Selection */}
             {product.variants.length > 1 && (
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -123,7 +120,6 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* Add to Cart Button */}
             <button
               className="w-full bg-black text-white py-3 px-6 rounded-md hover:bg-gray-800 transition-colors"
               disabled={!selectedVariant?.available}
@@ -132,7 +128,6 @@ export default function ProductDetail() {
             </button>
           </div>
 
-          {/* Product Description */}
           <div>
             <h2 className="text-xl font-semibold mb-2">Description</h2>
             <div 

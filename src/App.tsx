@@ -11,6 +11,8 @@ import SchemaMarkup from './components/shared/SchemaMarkup';
 import { generateOrganizationSchema } from './utils/schema';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           } />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           {/* Add more routes as needed */}
         </Routes>
         
