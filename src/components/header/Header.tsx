@@ -24,7 +24,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen, onNavClick }: Header
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          <Logo />
+          <Link to="/" onClick={onNavClick}>
+            <Logo />
+          </Link>
           <Navigation />
           <div className="flex items-center gap-4">
             <motion.button 
@@ -52,8 +54,9 @@ export default function Header({ isMenuOpen, setIsMenuOpen, onNavClick }: Header
               className="md:hidden py-4 border-t border-purple-500/20"
             >
               <nav className="flex flex-col space-y-2">
-                <Link to="/" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Home</Link>
-                <Link to="/products" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Products</Link>
+                <Link to="/products" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Shop</Link>
+                <Link to="/collections" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Collections</Link>
+                <Link to="/new-arrivals" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">New Arrivals</Link>
                 <Link to="/about" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">About</Link>
                 <Link to="/contact" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Contact</Link>
               </nav>
