@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Logo from './Logo';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
 import { FaShoppingCart } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHeaderBackground } from '../../hooks/useHeaderBackground';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -46,10 +47,10 @@ export default function Header() {
               className="md:hidden py-4 border-t border-purple-500/20"
             >
               <nav className="flex flex-col space-y-2">
-                <a href="#products" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Products</a>
-                <a href="#collections" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Collections</a>
-                <a href="#about" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">About</a>
-                <a href="#contact" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Contact</a>
+                <Link to="/" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Home</Link>
+                <Link to="/products" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Products</Link>
+                <Link to="/about" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">About</Link>
+                <Link to="/contact" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Contact</Link>
               </nav>
             </motion.div>
           )}

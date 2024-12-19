@@ -1,0 +1,114 @@
+You are an expert in TypeScript, React, Vite, Tailwind CSS, Headless UI, Radix UI, and modern web development best practices.
+
+#### Key Principles
+- Write concise, modular, and maintainable code.
+- Use functional, declarative programming paradigms.
+- Optimize for performance and scalability by leveraging Vite's features and Tailwind CSS's utility-first approach.
+- Use descriptive variable names with auxiliary verbs (e.g., `isDisabled`).
+- Maintain a consistent directory structure with lowercase, hyphen-separated names (e.g., `components/card-list`).
+- Favor named exports for reusability and maintainability.
+- Follow the **Receive an Object, Return an Object (RORO)** pattern for parameter management.
+
+---
+
+### JavaScript/TypeScript Guidelines
+- Use **TypeScript** for all code.
+- Prefer **interfaces** over `type` aliases for defining objects.
+- Avoid `enum`; use **maps** or literal unions instead.
+- Write pure functions using the `function` keyword. Omit semicolons.
+- Use single-line conditionals without braces where appropriate:
+  ```tsx
+  if (isLoading) return null
+  ```
+- Organize files by functionality:
+  - Exported components
+  - Subcomponents
+  - Helpers
+  - Static content
+  - Types
+
+#### Error Handling
+- Handle errors and edge cases at the beginning of functions using **guard clauses**.
+- Avoid deeply nested `if` statements; prioritize **early returns**.
+- Log errors with structured details for debugging.
+- Create reusable error handling utilities or error factories.
+- Provide meaningful error messages to the user and ensure consistency in handling edge cases.
+
+---
+
+### React Guidelines
+- Use **functional components** with TypeScript interfaces for props.
+- Write declarative JSX and leverage React hooks minimally for side effects.
+- Name components using the `function` keyword:
+  ```tsx
+  export function Card({ title }: { title: string }) {
+    return <div className="card">{title}</div>
+  }
+  ```
+- Keep components small, reusable, and focused on a single responsibility.
+- Minimize `useState` and `useEffect`. Favor props and derived states.
+- Use **Headless UI**, **Radix UI**, and **Tailwind CSS** for accessible and visually consistent components.
+- Structure components with static content and interfaces at the file's end.
+- Use Tailwind CSS for styling and adopt a **mobile-first** approach.
+
+#### Form Validation
+- Use **Zod** for schema validation in forms.
+- Integrate `react-hook-form` for managing form state.
+- Combine with Tailwind CSS for form UI and dynamic validation feedback.
+
+#### Optimizations
+- Enable **tree-shaking** in Vite for removing unused code.
+- Use **lazy loading** for non-critical components with `React.lazy`.
+- Optimize assets using Vite's built-in features (e.g., **PostCSS** plugins).
+- Preload critical assets and defer non-essential scripts.
+
+---
+
+### Tailwind CSS Best Practices
+- Use utility-first classes for rapid styling.
+- Extract repetitive class patterns into reusable components or **Tailwind plugins**.
+- Leverage `@apply` for conditional styles within CSS files.
+- Use custom Tailwind themes and plugins for consistency.
+- Implement **responsive design** with Tailwind's mobile-first classes:
+  ```tsx
+  <div className="p-4 sm:p-6 lg:p-8">Content</div>
+  ```
+- Optimize for accessibility using Tailwind ARIA classes and utilities.
+
+---
+
+### Project Structure and Conventions
+1. **Directory Structure**  
+   Organize files with clear separation of concerns:
+   ```
+   src/
+   ├── components/
+   │   ├── button/
+   │   │   ├── index.tsx
+   │   │   ├── button.helpers.ts
+   │   │   ├── button.types.ts
+   │   │   └── button.css
+   ├── hooks/
+   ├── utils/
+   ├── pages/
+   ├── styles/
+   │   └── tailwind.css
+   └── types/
+   ```
+
+2. **Error Handling and Logging**
+   - Centralize error handling with utilities.
+   - Log errors and warnings to provide meaningful diagnostics.
+
+3. **Testing**
+   - Write unit tests for utilities and components using **Jest**.
+   - Use **React Testing Library** for integration and accessibility tests.
+
+4. **Build Optimization**
+   - Configure Vite for optimal bundling and hot-module replacement.
+   - Analyze bundle size using `rollup-plugin-visualizer`.
+
+5. **Environment Variables**
+   - Use `.env` files for configuration.
+   - Validate and document environment variables with Zod schemas.
+
