@@ -7,14 +7,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useHeaderBackground } from '../../hooks/useHeaderBackground';
 import { Link } from 'react-router-dom';
 
-export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+interface HeaderProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: (isOpen: boolean) => void;
+  onNavClick: () => void;
+}
+
+export default function Header({ isMenuOpen, setIsMenuOpen, onNavClick }: HeaderProps) {
   const isScrolled = useHeaderBackground();
 
   return (
     <header
       className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen ? 'bg-black/90 backdrop-blur-sm' : 'bg-transparent'
+        isScrolled || isMenuOpen ? 'bg-black/90 backdrop-blur-sm' : 'bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,14 +36,14 @@ export default function Header() {
             </motion.button>
 
             <MobileMenu 
-              isOpen={isMobileMenuOpen}
-              setIsOpen={setIsMobileMenuOpen}
+              isOpen={isMenuOpen}
+              setIsOpen={setIsMenuOpen}
             />
           </div>
         </div>
 
         <AnimatePresence>
-          {isMobileMenuOpen && (
+          {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
@@ -47,10 +52,10 @@ export default function Header() {
               className="md:hidden py-4 border-t border-purple-500/20"
             >
               <nav className="flex flex-col space-y-2">
-                <Link to="/" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Home</Link>
-                <Link to="/products" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Products</Link>
-                <Link to="/about" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">About</Link>
-                <Link to="/contact" className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Contact</Link>
+                <Link to="/" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Home</Link>
+                <Link to="/products" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Products</Link>
+                <Link to="/about" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">About</Link>
+                <Link to="/contact" onClick={onNavClick} className="px-4 py-2 text-gray-300 hover:text-white hover:bg-purple-500/10 rounded-lg transition-colors">Contact</Link>
               </nav>
             </motion.div>
           )}

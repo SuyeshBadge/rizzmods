@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
 import Hero from './components/hero/Hero';
@@ -15,6 +15,12 @@ import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <Router>
       <SEOHead
@@ -24,7 +30,7 @@ function App() {
       <SchemaMarkup schema={generateOrganizationSchema()} />
       
       <div className="min-h-screen bg-black text-white">
-        <Header />
+        <Header isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} onNavClick={closeMenu} />
         
         <Routes>
           <Route path="/" element={
