@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { FaTrophy, FaGamepad, FaHeart, FaUsers, FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { IoGameController } from 'react-icons/io5';
 import { RiSparklingFill } from 'react-icons/ri';
@@ -158,6 +158,25 @@ const About = () => {
         ease: "linear",
         duration: 0.2
       }
+    }
+  };
+
+  // Add scroll progress state
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Add smooth scroll function
+  const scrollToContent = () => {
+    const contentSection = document.getElementById('main-content');
+    if (contentSection) {
+      contentSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   };
 
@@ -343,7 +362,7 @@ const About = () => {
                     alt="RizzMods Logo"
                     className="relative w-[150px] h-[150px] rounded-full 
                              filter brightness-110 group-hover:brightness-125
-                             transition-all duration-300"
+                             transition-all duration-300 cursor-pointer"
                     animate={{
                       rotate: [0, -5, 0, 5, 0],
                       scale: [1, 1.02, 1, 1.02, 1]
@@ -430,7 +449,7 @@ const About = () => {
 
           {/* Scroll Indicator */}
           <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
             animate={{
               y: [0, 10, 0],
               opacity: [0.3, 1, 0.3]
@@ -440,15 +459,18 @@ const About = () => {
               repeat: Infinity,
               ease: "easeInOut"
             }}
+            onClick={scrollToContent}
+            onMouseEnter={() => setCursorVariant("hover")}
+            onMouseLeave={() => setCursorVariant("default")}
           >
-            <div className="w-6 h-10 border-2 border-purple-400 rounded-full p-1">
+            <div className="w-6 h-10 border-2 border-purple-400 rounded-full p-1 hover:border-purple-300 transition-colors">
               <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mx-auto animate-scroll" />
             </div>
           </motion.div>
         </motion.div>
 
         {/* Main content container - Add padding to prevent content touching edges */}
-        <div className="container mx-auto px-4 md:px-6 py-12 md:py-20 relative z-10">
+        <div id="main-content" className="container mx-auto px-4 md:px-6 py-12 md:py-20 relative z-10">
           <div className="max-w-5xl mx-auto"> {/* Increased max-width */}
             {/* Stats Section - Enhanced with magical effects */}
             <motion.div 
@@ -584,11 +606,23 @@ const About = () => {
               ].map(({ title, content }, index) => (
                 <motion.section
                   key={title}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                  className="bg-purple-900/10 p-8 md:p-12 rounded-2xl border border-purple-500/20 hover:border-purple-500/40 transition-colors"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ 
+                    opacity: 1, 
+                    y: 0,
+                    transition: {
+                      type: "spring",
+                      duration: 1,
+                      bounce: 0.3
+                    }
+                  }}
+                  viewport={{ 
+                    once: true, 
+                    margin: "-100px",
+                    amount: 0.3 
+                  }}
+                  className="bg-purple-900/10 p-8 md:p-12 rounded-2xl border border-purple-500/20 
+                            hover:border-purple-500/40 transition-all duration-300"
                 >
                   <h2 className="text-3xl font-bold text-white mb-6">{title}</h2>
                   <p className="text-gray-300 leading-relaxed whitespace-pre-line">
@@ -638,6 +672,12 @@ const About = () => {
         className="pointer-events-none fixed inset-0 z-30 opacity-30 hidden md:block"
         variants={glowEffect}
         animate="animate"
+      />
+
+      {/* Add progress bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-purple-500 origin-left z-50"
+        style={{ scaleX }}
       />
     </div>
   );

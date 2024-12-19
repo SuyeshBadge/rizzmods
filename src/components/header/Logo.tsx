@@ -1,17 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Logo from '../shared/Logo';
 
-export default function HeaderLogo() {
+export default function Logo() {
   return (
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-      className="flex items-center"
-    >
-      <Logo size="lg" className="text-purple-500" />
-      <span className="text-xl sm:text-3xl font-bold text-white">RizzMods</span>
-    </motion.div>
+    <Link to="/" className="flex items-center">
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="relative"
+      >
+        <img 
+          src="/logo.png" 
+          alt="RizzMods Logo" 
+          className="w-10 h-10 sm:w-12 sm:h-12 transition-transform hover:brightness-110"
+        />
+      </motion.div>
+      <motion.span 
+        className="ml-2 text-xl sm:text-2xl font-bold text-white hidden sm:block"
+        whileHover={{ color: '#A855F7' }}
+      >
+        RizzMods
+      </motion.span>
+    </Link>
   );
 }
