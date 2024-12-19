@@ -6,28 +6,28 @@ const navigationSections = [
   {
     title: 'Products',
     links: [
-      { label: 'Featured', href: '#' },
-      { label: 'New Arrivals', href: '#' },
-      { label: 'Best Sellers', href: '#' },
-      { label: 'Collections', href: '#' },
+      { label: 'Featured', href: '/products' },
+      { label: 'New Arrivals', href: '/products' },
+      { label: 'Best Sellers', href: '/products' },
+      { label: 'Collections', href: '/products' },
     ],
   },
   {
     title: 'Support',
     links: [
-      { label: 'Help Center', href: '#' },
-      { label: 'Track Order', href: '#' },
-      { label: 'Returns', href: '#' },
-      { label: 'Contact Us', href: '#' },
+      { label: 'Help Center', href: '/contact' },
+      { label: 'Track Order', href: '/contact' },
+      { label: 'Returns', href: '/contact' },
+      { label: 'Contact Us', href: '/contact' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About Us', href: '#' },
-      { label: 'Careers', href: '#' },
-      { label: 'Blog', href: '#' },
-      { label: 'Press', href: '#' },
+      { label: 'About Us', href: '/about' },
+      { label: 'Careers', href: '/about' },
+      { label: 'Blog', href: '/' }, // No specific route for blog, linking to homepage
+      { label: 'Press', href: '/about' },
     ],
   },
 ];
