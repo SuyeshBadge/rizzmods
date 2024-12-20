@@ -1,61 +1,60 @@
 import React from 'react';
-import { FaShoppingCart, FaStar } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import { formatPrice } from '../../utils/currency';
-import { Product } from './types';
-import SchemaMarkup from '../shared/SchemaMarkup';
-import { generateProductSchema } from '../../utils/schema';
+import { Link } from 'react-router-dom';
+import { FaStar, FaShoppingCart } from 'react-icons/fa';
+import { Product } from '../../types/product';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const formatPrice = (price: string | number) => {
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price;
+    return !isNaN(numPrice) ? numPrice.toFixed(2) : '0.00';
+  };
+
   return (
-    <>
-      <SchemaMarkup schema={generateProductSchema(product)} />
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 20 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.6 }
-          }
-        }}
-        className="group relative rounded-xl overflow-hidden bg-purple-900/20 backdrop-blur-sm border border-purple-500/20"
-      >
-        <div className="aspect-w-16 aspect-h-9 sm:aspect-w-1 sm:aspect-h-1">
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="flex flex-col h-full group relative rounded-xl overflow-hidden bg-purple-900/20 backdrop-blur-sm border border-purple-500/20"
+    >
+      <Link to={`/product/${product.id}`} className="flex flex-col h-full">
+        <div className="relative pt-[100%]">
           <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+            src={product.images[0]?.src || 'https://placehold.co/400x400/png?text=Product+Image'}
+            alt={product.images[0]?.alt || product.title}
+            className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
             loading="lazy"
           />
         </div>
-        <div className="p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg sm:text-xl font-bold text-white line-clamp-1">
-              {product.name}
+        <div className="flex flex-col flex-grow p-4">
+          <div className="flex items-start justify-between mb-2 gap-2">
+            <h3 className="text-lg font-bold text-white truncate">
+              {product.title}
             </h3>
-            <div className="flex items-center">
+            <div className="flex items-center flex-shrink-0">
               <FaStar className="w-4 h-4 text-yellow-400 mr-1" />
               <span className="text-gray-300">{product.rating}</span>
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-xl sm:text-2xl font-bold text-purple-400">
-              {formatPrice(product.price)}
+          <p className="text-sm text-gray-400 mb-4 line-clamp-2 flex-grow">
+            {product.description}
+          </p>
+          <div className="flex items-center justify-between mt-auto">
+            <span className="text-xl font-bold text-purple-400">
+              ${formatPrice(product.price)}
             </span>
-            <button 
-              className="p-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors transform hover:scale-105"
-              aria-label={`Add ${product.name} to cart`}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="p-2 rounded-lg bg-purple-600 hover:bg-purple-700 transition-colors"
             >
-              <FaShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-            </button>
+              <FaShoppingCart className="w-5 h-5 text-white" />
+            </motion.button>
           </div>
         </div>
-      </motion.div>
-    </>
+      </Link>
+    </motion.div>
   );
-}
+} 
