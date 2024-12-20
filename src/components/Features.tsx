@@ -1,4 +1,4 @@
-import React from 'react';
+import { FaPalette, FaShieldAlt, FaTruck } from 'react-icons/fa';
 
 const features = [
   {
