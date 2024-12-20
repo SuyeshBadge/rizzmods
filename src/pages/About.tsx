@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import  { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { FaTrophy, FaGamepad, FaHeart, FaUsers, FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { IoGameController } from 'react-icons/io5';

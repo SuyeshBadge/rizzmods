@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { fetchProducts, fetchCategories } from '../server/shopifyService';
 import ProductCard from '../components/products/ProductCard';
